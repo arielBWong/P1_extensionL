@@ -1362,12 +1362,13 @@ def para_run():
         # 'p/half1_problems_OBJ_2_nd_4.json',
         # 'p/half1_problems_OBJ_2_nd_6.json',
 
-        'p/half1_problems_OBJ_5_nd_2.json',
-        'p/half1_problems_OBJ_5_nd_4.json',
-        'p/half1_problems_OBJ_5_nd_5.json',
-        'p/half1_problems_OBJ_5_nd_6.json',
-        'p/half1_problems_OBJ_5_nd_0.json',
-        'p/half1_problems_OBJ_5_self_0.json'
+        # 'p/half1_problems_OBJ_5_nd_2.json',
+        # 'p/half1_problems_OBJ_5_nd_4.json',
+        # 'p/half1_problems_OBJ_5_nd_5.json',
+        # 'p/half1_problems_OBJ_5_nd_6.json',
+        # 'p/half2_problems_OBJ_5_nd_0.json',
+        # 'p/half2_problems_OBJ_5_self_0.json',
+        'p/half2_problems_OBJ_5_nd_6.json',
              ]
 
     args = []
@@ -1378,7 +1379,7 @@ def para_run():
         target_problems = hyp['MO_target_problems']
         method_selection = hyp['method_selection']
         search_ideal = hyp['search_ideal']
-        max_eval = hyp['max_eval']
+        max_eval =  hyp['max_eval']
         num_pop = hyp['num_pop']
         num_gen = hyp['num_gen']
         for problem in target_problems:
