@@ -4,4 +4,4 @@
 
 conda install -y python=3.7.*
 conda install -y numpy scipy matplotlib scikit-learn
-pip3 install -y pydoe pygmo optproblems diversipy
+pip3 install pydoe pygmo optproblems diversipy pymop
