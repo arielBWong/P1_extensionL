@@ -28,6 +28,13 @@ from sklearn.metrics import silhouette_samples, silhouette_score
 import time
 
 
+def make_dir(dir):
+    try:
+        os.mkdir(dir)
+    except os.FileExistsError:
+        pass
+    except Exception, e:
+        raise e
 
 
 def init_xy(number_of_initial_samples, target_problem, seed):
@@ -616,26 +623,27 @@ def nd2csv(train_y, target_problem, seed_index, method_selection, search_ideal, 
     # (5)save nd front under name \problem_method_i\nd_seed_1.csv
     path = os.getcwd()
     n = target_problem.n_obj
-    path = path + os.sep + 'results_OBJ' + str(n)
-    if not os.path.exists(path):
-        os.mkdir(path)
-    savefolder = path + os.sep + target_problem.name() + '_' + method_selection + '_' + str(int(search_ideal))
-    if not os.path.exists(savefolder):
-        os.mkdir(savefolder)
-    savename = savefolder + os.sep + 'nd_seed_' + str(seed_index) + '.csv'
+
+    path = os.path.join(path, 'results_OBJ%d' % n)
+    make_dir(path)
+
+    savefolder = os.path.join(path, '%s_%s_%d' % (target_problem.name(), method_selection, int(search_ideal)))
+    make_dir(savefolder)
+
+    savename = os.path.join(savefolder, 'nd_seed_%d.csv' % seed_index)
     ndf, dl, dc, ndr = pg.fast_non_dominated_sorting(train_y)
     ndf = list(ndf)
     ndindex = ndf[0]
     ndfront = train_y[ndindex, :]
     np.savetxt(savename, ndfront, delimiter=',')
 
-    savename = savefolder + os.sep + 'trainy_seed_' + str(seed_index) + '.csv'
+    savename = os.path.join(savefolder, 'trainy_seed_%d.csv' % seed_index)
     np.savetxt(savename, train_y, delimiter=',')
 
-    savename = savefolder + os.sep + 'activationcheck_seed_' + str(seed_index) + '.joblib'
+    savename = os.path.join(savefolder, 'activationcheck_seed_%d.joblib' % seed_index)
     dump(activation_record, savename)
 
-    savename = savefolder + os.sep + 'sil_record_seed_' + str(seed_index) + '.joblib'
+    savename = os.path.join(savefolder, 'sil_record_seed_%d.joblib' % seed_index)
     dump(sil_record, savename)
 
 
@@ -644,16 +652,16 @@ def pfnd2csv(pf_nd, target_problem, seed_index, method_selection, search_ideal, 
     path = os.getcwd()
     n = target_problem.n_obj
     path = path + os.sep + 'results_OBJ' + str(n)
-    if not os.path.exists(path):
-        os.mkdir(path)
-    savefolder = path + os.sep + target_problem.name() + '_' + method_selection + '_' + str(int(search_ideal))
-    if not os.path.exists(savefolder):
-        os.mkdir(savefolder)
-    savename = savefolder + os.sep + 'hvconvg_seed_' + str(seed_index) + '.csv'
+    make_dir(path)
+
+    savefolder = os.path.join(path,  '%s_%s_%d' % (target_problem.name(), method_selection, int(search_ideal)))
+    make_dir(savefolder)
+
+    savename = os.path.join(savefolder, 'hvconvg_seed_%d.csv' % seed_index)
     pf_nd = pf_nd.reshape(-1, 2)
     np.savetxt(savename, pf_nd, delimiter=',')
 
-    savename = savefolder + os.sep + 'nadir_seed_' + str(seed_index) + '.csv'
+    savename = os.path.join(savefolder, 'nadir_seed_%d.csv' % seed_index)
     n = target_problem.n_obj
     nadir_record = nadir_record.reshape(-1, n)
     np.savetxt(savename, nadir_record, delimiter=',')
