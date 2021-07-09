@@ -31,9 +31,9 @@ import time
 def make_dir(dir):
     try:
         os.mkdir(dir)
-    except os.FileExistsError:
+    except FileExistsError:
         pass
-    except Exception, e:
+    except e:
         raise e
 
 
