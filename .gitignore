@@ -1,0 +1,14 @@
+# Ignore result directories
+results_OBJ3/
+results_OBJ3_half1/
+results_OBJ5/
+
+# Ignore python cache
+__pycache__/
+
+# Ignore data files
+*.pdf
+*.zip
+*.patch
+*.exe
+*.pptx
