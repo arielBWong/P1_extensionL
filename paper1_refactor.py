@@ -1333,10 +1333,17 @@ def process_visualcheck3D(ax, next_x, next_y, target_problem, krg, denormalize, 
 
 def single_run():
     import json
-    problems_json = 'p' + os.sep + 'half1_problems_corner_4.json'
+    
+    with open('single_run.json', 'r')as data_file:
+        outer_parameter = json.load(data_file)
 
+    
+    problems_json = outer_parameter['problem_settings']
+   
     with open(problems_json, 'r') as data_file:
         hyp = json.load(data_file)
+    
+  
     target_problems = hyp['MO_target_problems']
     method_selection = hyp['method_selection']
     search_ideal = hyp['search_ideal']
@@ -1354,25 +1361,13 @@ def single_run():
 
 def para_run():
     import json
-    problems_json = [
-        # 'p/half1_problems_OBJ_2_self_0.json',
-        # 'p/half1_problems_OBJ_2_nd_0.json',
-        # 'p/half1_problems_OBJ_2_nd_1.json',
-        # 'p/half1_problems_OBJ_2_nd_5.json',
-        # 'p/half1_problems_OBJ_2_nd_4.json',
-        # 'p/half1_problems_OBJ_2_nd_6.json',
 
-        # 'p/half1_problems_OBJ_5_nd_2.json',
-        # 'p/half1_problems_OBJ_5_nd_4.json',
-        # 'p/half1_problems_OBJ_5_nd_5.json',
-        # 'p/half1_problems_OBJ_5_nd_6.json',
-        # 'p/half2_problems_OBJ_5_nd_0.json',
-        # 'p/half2_problems_OBJ_5_self_0.json',
-        'p/half2_problems_OBJ_5_nd_6.json',
-             ]
-
+    with open('para_run.json', 'r')as data_file:
+        outer_parameter = json.load(data_file)
+    
+    problems_json = outer_parameter['problem_settings']
     args = []
-    seedmax = 29
+    seedmax = outer_parameter['seedmax']
     for problem_setting in problems_json:
         with open(problem_setting, 'r') as data_file:
             hyp = json.load(data_file)
@@ -1386,7 +1381,7 @@ def para_run():
             for seed in range(seedmax):
                 args.append((seed, problem, method_selection, search_ideal, max_eval, num_pop, num_gen, False))
 
-    num_workers = 48
+    num_workers = outer_parameter['num_workers']
     pool = mp.Pool(processes=num_workers)
     pool.starmap(paper1_mainscript, ([arg for arg in args]))
 
