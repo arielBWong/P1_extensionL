@@ -1,5 +1,5 @@
 {
-	"problem_settings":["p/half1_problems_OBJ2_nd__4.json"],
+	"problem_settings":["p/half2_problems_OBJ5_nd_6.json"],
 	"seedmax": 1,
-	"number_workers":2
+	"number_workers":36
 }
