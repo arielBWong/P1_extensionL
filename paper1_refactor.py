@@ -235,6 +235,7 @@ def lexsort_with_certain_row(f_matrix, target_row_index):
 
     return selected_x_index
 
+
 def additional_evaluation(x_krg, train_x, train_y, problem,
                           ):
     '''
@@ -647,7 +648,6 @@ def nd2csv(train_y, target_problem, seed_index, method_selection, search_ideal, 
     dump(sil_record, savename)
 
 
-
 def pfnd2csv(pf_nd, target_problem, seed_index, method_selection, search_ideal, nadir_record, cornerid, prediction_xrecord, prediction_yrecord, extreme_search, success_extremesearch):
     path = os.getcwd()
     n = target_problem.n_obj
@@ -719,6 +719,7 @@ def plot_initpop(train_y, target_problem, method_selection, search_ideal, seed):
     plt.savefig(savename1, format='eps')
     plt.savefig(savename2)
 
+
 def get_paretofront(problem, n):
     from pymop.factory import get_uniform_weights
     n_obj = problem.n_obj
@@ -728,6 +729,7 @@ def get_paretofront(problem, n):
         return problem.pareto_front(ref_dir)
     else:
         return problem.pareto_front(n_pareto_points=n)
+
 
 def plot_process(ax, problem, train_y, norm_train_y, denormalize, idealsearch, model, train_x):
     ss = 16
@@ -816,9 +818,6 @@ def plot_process(ax, problem, train_y, norm_train_y, denormalize, idealsearch, m
     plt.close()
 
 
-
-
-
 def plot_process3d(ax, problem, train_y, norm_train_y, denormalize, idealsearch, model, train_x, n_new):
     # from norm_train_y can check whether n_new is right : size(norm_train_y) + 1 + n_new = size(train_y)
     true_pf = get_paretofront(problem, 1000)
@@ -886,7 +885,6 @@ def plot_process3d(ax, problem, train_y, norm_train_y, denormalize, idealsearch,
     '''
 
 
-
 def hv_converge(target_problem, train_y):
     '''
     every iteration, this function takes pf and nd_front, and return two values of [hv_pf, hv_nd]
@@ -906,6 +904,7 @@ def hv_converge(target_problem, train_y):
     nd_hv = gethv(nd, ref)
     return pf_hv, nd_hv
 
+
 def gethv(front, ref):
     # front needs to be processed first to eliminate points beyond ref
     n = front.shape[0]
@@ -922,8 +921,6 @@ def gethv(front, ref):
         return hv_class.compute(ref)
     else:
         return 0.0
-
-
 
 
 def paper1_mainscript(seed_index, target_problem, method_selection, search_ideal, max_eval, num_pop, num_gen, visual):
@@ -950,8 +947,6 @@ def paper1_mainscript(seed_index, target_problem, method_selection, search_ideal
     target_problem = eval(target_problem)
     print('Problem %s, seed %d' % (target_problem.name(), seed_index))
     PF = get_paretofront(target_problem, 1000)
-
-
 
     if target_problem.n_obj == 2:
         hv_ref = [1.1, 1.1]
@@ -1303,6 +1298,7 @@ def process_visualcheck(ax, next_x, next_y, krg, denormalize, train_y):
     ax.scatter(pred_y[:, 0], pred_y[:, 1], marker=7, c='black')
     plt.pause(2)
 
+
 def process_visualcheck3D(ax, next_x, next_y, target_problem, krg, denormalize, train_y, norm_train_y):
     '''
     process: ax, next_y, target_problem, train_y, norm_train_y, denormalize, krg1
@@ -1355,6 +1351,7 @@ def single_run():
     paper1_mainscript(seed_index, target_problem, method_selection, search_ideal, max_eval, num_pop, num_gen, visual)
     return None
 
+
 def para_run():
     import json
     problems_json = [
@@ -1393,6 +1390,7 @@ def para_run():
     pool.starmap(paper1_mainscript, ([arg for arg in args]))
 
     return None
+
 
 def plot_run():
     import json
