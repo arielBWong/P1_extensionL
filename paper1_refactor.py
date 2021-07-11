@@ -963,7 +963,7 @@ def paper1_mainscript(seed_index, target_problem, method_selection, search_ideal
     tmp_path = os.path.join(tmp_path, 'results_OBJ%d' % target_problem.n_obj)
     tmp_folder = os.path.join(tmp_path, '%s_%s_%d'%(target_problem.name(), method_selection,int(search_ideal)))
     tmp_savename = os.path.join(tmp_folder, 'trainy_seed_%d.csv' % seed_index)
-    if os.path.exist(tmp_savename):
+    if os.path.exists(tmp_savename):
         print(tmp_savename + 'exists and pass run')
         return
 
